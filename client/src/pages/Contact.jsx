@@ -38,7 +38,7 @@ function validateForm(formValues) {
 
 /**
  * Contact: contact details panel plus an interactive message form.
- * On a valid submit the data is captured and the visitor is redirected to Home.
+ * On a valid submit the contact is saved through the REST API and the visitor is redirected to Home.
  */
 export default function Contact() {
   const navigate = useNavigate();
@@ -51,14 +51,17 @@ export default function Contact() {
     setFormValues((previousValues) => ({ ...previousValues, [name]: value }));
   };
 
-  const handleSubmit = (event) => {
+  // True while the request to the back end is in flight (disables the button)
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  // Message shown if the back end could not save the contact
+  const [submitError, setSubmitError] = useState("");
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const validationErrors = validateForm(formValues);
     setFormErrors(validationErrors);
     if (Object.keys(validationErrors).length > 0) return;
 
-    // The form is not wired to a server yet: log the captured data, then
-    // redirect to the Home page with the submitted details attached.
     const submittedMessage = {
       firstName: formValues.firstName.trim(),
       lastName: formValues.lastName.trim(),
@@ -66,7 +69,33 @@ export default function Contact() {
       email: formValues.emailAddress.trim(),
       message: formValues.message.trim(),
     };
-    console.info("Contact form submission captured:", submittedMessage);
+
+    // Assignment 2: save the contact through the Express REST API (POST /api/contacts).
+    // The API's contact schema stores firstname, lastname and email.
+    setIsSubmitting(true);
+    setSubmitError("");
+    try {
+      const response = await fetch("/api/contacts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstname: submittedMessage.firstName,
+          lastname: submittedMessage.lastName,
+          email: submittedMessage.email,
+        }),
+      });
+      if (!response.ok) {
+        const errorBody = await response.json().catch(() => ({}));
+        throw new Error(errorBody.error || "The server could not save your message.");
+      }
+    } catch (error) {
+      // A TypeError from fetch means the server could not be reached at all
+      setSubmitError(error instanceof TypeError ? "Could not reach the server. Please try again in a moment." : error.message);
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Saved: redirect to the Home page, which shows the thank-you banner (Assignment 1 behaviour)
     navigate("/", { state: { submittedMessage } });
   };
 
@@ -137,7 +166,10 @@ export default function Contact() {
                 />
                 {formErrors.message && <p className="field-error" id="message-error">{formErrors.message}</p>}
               </div>
-              <button type="submit" className="button button-primary">Send message</button>
+              {submitError && <p className="field-error" role="alert">{submitError}</p>}
+              <button type="submit" className="button button-primary" disabled={isSubmitting}>
+                {isSubmitting ? "Sending..." : "Send message"}
+              </button>
             </div>
           </form>
         </div>
