@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" role="img"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2a1612"/><stop offset="1" stop-color="#7a2a14"/></linearGradient></defs><rect width="900" height="560" fill="url(#g)"/>
+<rect x="80" y="60" width="740" height="440" rx="18" fill="#fffdf9"/>
+<rect x="80" y="60" width="740" height="56" rx="18" fill="#1f1d1b"/><rect x="80" y="98" width="740" height="18" fill="#1f1d1b"/>
+<circle cx="112" cy="88" r="7" fill="#e5533d"/><circle cx="136" cy="88" r="7" fill="#e9b949"/><circle cx="160" cy="88" r="7" fill="#58b368"/>
+<path d="M420 190 C390 230 380 260 400 290 C410 270 425 262 430 235 C445 255 462 275 450 300 C480 280 490 235 455 200 C450 215 445 220 440 222 C445 205 435 195 420 190Z" fill="#e5533d"/>
+<text x="450" y="345" text-anchor="middle" font-family="Georgia,serif" font-size="40" font-weight="700" fill="#1f1d1b">Flame Grill</text>
+<g fill="#f3efe8" stroke="#d9d2c4"><rect x="130" y="380" width="200" height="90" rx="10"/><rect x="350" y="380" width="200" height="90" rx="10"/><rect x="570" y="380" width="200" height="90" rx="10"/></g>
+<g fill="#7a2a14" font-family="Arial,sans-serif" font-size="18" font-weight="600"><text x="150" y="418">Menu</text><text x="370" y="418">Order Online</text><text x="590" y="418">Find Us</text></g>
+<g fill="#b5ab99"><rect x="150" y="432" width="120" height="8" rx="4"/><rect x="370" y="432" width="120" height="8" rx="4"/><rect x="590" y="432" width="120" height="8" rx="4"/></g>
+<g fill="#23408f"><circle cx="740" cy="170" r="30"/></g><path d="M740 150 a14 14 0 1 1 -0.1 0 M740 190 L728 168 h24z" fill="#f3efe8"/>
+</svg>
