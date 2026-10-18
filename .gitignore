@@ -14,7 +14,7 @@ dist
 .DS_Store
 Thumbs.db
 
-#Postman local workspace files
-#postman/
-#postman/collections/
-#postman/globals/
+# Postman local workspace files
+.postman/
+postman/collections/
+postman/globals/
