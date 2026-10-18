@@ -131,6 +131,38 @@
           ]
         },
         {
+          "name": "GET protected route WITHOUT token (expect 401)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "Run this BEFORE signing in. After sign-in the server sets an httpOnly cookie (t) that Postman then sends automatically, which would make this request authenticated. Signing out (folder 07) clears the cookie."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"no token: status is 401\", function () { pm.response.to.have.status(401); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
           "name": "POST sign in",
           "request": {
             "method": "POST",
@@ -218,37 +250,6 @@
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"bad credentials: status is 401\", function () { pm.response.to.have.status(401); });"
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "name": "GET protected route WITHOUT token (expect 401)",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/users",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "users"
-              ]
-            },
-            "auth": {
-              "type": "noauth"
-            }
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test(\"no token: status is 401\", function () { pm.response.to.have.status(401); });"
                 ]
               }
             }
